@@ -1,0 +1,36 @@
+<body>
+    <div class="backgroundcontainer" layout="row" layout-align="center center">
+<mat-card>
+    <mat-card-content>
+        <div class="header">
+            <h1>LOGIN</h1>
+        </div><br>
+        <form (ngSubmit)="onLogin()" name="loginForm" [formGroup]="loginForm">
+                 <mat-form-field class="full-width" appearance="outline"> 
+                      <mat-label>Username</mat-label>
+                      <input  formControlName="username"  matInput placeholder="Enter email address" required/>
+                      <mat-error ng-if="loginForm.email.$invalid && loginForm.email.$dirty">
+                                 Please Enter a valid email address
+                      </mat-error>
+                 </mat-form-field>
+            <br><br>
+                <mat-form-field class="full-width" appearance="outline">
+                  <mat-label>Password</mat-label>
+                    <input formControlName="password" matInput [type]=" hide ? 'password' : 'text'" required />
+                      <button  mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide Password'"
+                                            [attr.aria-pressed]="hide">
+                            <mat-icon>
+                               {{hide ? 'visibility_off' : 'visibility'}}
+                            </mat-icon>
+                      </button>
+                  <mat-error  ng-if="loginForm.password.$invalid && loginForm.password.$dirty">
+                                Password enter valid password
+                  </mat-error>
+                </mat-form-field>
+            <br><br><br>
+            <button  mat-flat-button color="primary">login</button>
+        </form>
+    </mat-card-content>
+</mat-card>
+</div>
+</body>

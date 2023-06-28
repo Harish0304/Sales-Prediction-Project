@@ -1,0 +1,84 @@
+/* Style for the body */
+body {
+    margin: 0;
+    border-radius: 5px;
+    background-image: url("../../assets/image/okjpg.jpg");
+    background-size:cover;
+    background-position:center;
+    
+  }
+  
+  /* Style for the header */
+  .head {
+    font-size: 2.5em;
+    text-align: center;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+  }
+  
+  /* Style for the form */
+  form {
+    position: absolute;
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    max-width: 550px;
+    padding: 1.5em;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    background-image: url("../../assets/image/Flowers-green-leaves-spring-background.webp");
+  }
+  
+  label {
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    display: block;
+    color: black;
+  }
+  
+  input[type="file"] {
+    margin-bottom: 1em;
+    border: none;
+    border-bottom: 2px solid #cccccc;
+    font-size: 1em;
+    padding: 0.5em;
+    width: 100%;
+  }
+  
+  select {
+    margin-bottom: 1em;
+    border: none;
+    border-bottom: 2px solid #cccccc;
+    font-size: 1em;
+    padding: 0.5em;
+    width: 100%;
+  }
+  
+  button[type="submit"] {
+    background-color:blue;
+    border: none;
+    color: white;
+    padding: 0.5em 1em;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1em;
+    margin-bottom: 1em;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+  }
+  
+  button[type="submit"]:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  
+  /* Style for the image */
+.image-wrapper
+  {
+    padding-left: 50%;
+    padding-top: 9%;
+  }
+  
+ 

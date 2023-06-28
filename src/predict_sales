@@ -1,0 +1,57 @@
+# Import necessary libraries
+from flask import Flask, request, jsonify
+import pandas as pd
+import joblib
+from datetime import datetime, timedelta
+import json
+
+# Load the machine learning model
+model = joblib.load('sales_prediction_model.pkl')
+
+# Create a Flask app
+app = Flask(__name__)
+
+# Define a route for the prediction function
+@app.route('/predict_sales', methods=['POST'])
+def predict_sales():
+    # Get the request data
+    file = request.files['file']
+    prediction_type = request.form['predictionType']
+    prediction_period = int(request.form['predictionPeriod'])
+    
+    # Read the data from the uploaded file
+    df = pd.read_excel(file)
+    
+    # Make sure that the date column is in the right format
+    df['date'] = pd.to_datetime(df['date'], format='%Y-%m-%d')
+    
+    # Calculate the maximum date in the dataset
+    max_date = df['date'].max()
+    
+    # Calculate the prediction start and end dates based on the user input
+    if prediction_type == 'year':
+        start_date = max_date + timedelta(days=1)
+        end_date = start_date + timedelta(days=(prediction_period - 1) * 365)
+    elif prediction_type == 'month':
+        start_date = max_date + timedelta(days=1)
+        end_date = start_date + timedelta(days=(prediction_period - 1) * 30)
+    else:
+        start_date = max_date + timedelta(days=1)
+        end_date = start_date + timedelta(days=(prediction_period - 1) * 7)
+    
+    # Generate a list of dates for the prediction period
+    date_range = pd.date_range(start_date, end_date)
+    
+    # Generate a dataframe with the prediction period
+    prediction_df = pd.DataFrame({'date': date_range})
+    
+    # Make the prediction using the model
+    prediction_df['prediction'] = model.predict(prediction_df['date'].apply(lambda x: x.toordinal()).to_frame())
+    
+    # Convert the prediction dataframe to a JSON object
+    response = prediction_df.to_json(orient='records', date_format='iso')
+    return response
+
+# Run the Flask app
+if __name__ == '__main__':
+    app.run(debug=True)
